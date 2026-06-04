@@ -17,8 +17,7 @@ BirdQuest is a gamified birding application with a React frontend for bird ident
 
 ## Common Development Commands
 
-All commands should be run from the `bird-game-frontend/` directory:
-
+### Frontend (bird-game-frontend/)
 ```bash
 # Start development server (runs on http://localhost:3000)
 npm start
@@ -33,17 +32,33 @@ npm run build
 # Note: Uses built-in ESLint config from react-scripts
 ```
 
+### Backend (bird-game-backend/)
+```bash
+# Start backend server (runs on http://127.0.0.1:3001)
+npm start
+
+# Start with development monitoring
+npm run dev
+
+# Test backend health endpoint
+curl -X GET http://127.0.0.1:3001/api/health
+```
+
 ## Key Features
 
 The application currently implements:
-- Image upload via file selection and drag/drop
-- Image preview with validation (JPG, PNG, GIF up to 10MB)
-- Placeholder bird identification workflow (TODO: backend integration)
-- Responsive UI with feature showcases
+- **Frontend**: Image upload via file selection and drag/drop
+- **Frontend**: Image preview with validation (JPG, PNG, GIF up to 10MB)
+- **Backend**: Express.js server with bird identification API
+- **Backend**: Mock bird identification with random responses
+- **Integration**: Frontend-backend communication via fetch API
+- **UI**: Responsive design with feature showcases
 
 ## Development Notes
 
-- The bird identification feature is stubbed out with a setTimeout simulation
-- Backend API integration is marked as TODO in `LandingPage.js:34`
-- Uses React hooks (useState) for state management
-- Image handling includes proper cleanup with URL.revokeObjectURL
+- **Backend**: Node.js/Express server with multer for image uploads
+- **API**: Mock bird identification service with fallback to real APIs
+- **Frontend**: React hooks (useState) for state management
+- **Image handling**: Proper cleanup with URL.revokeObjectURL
+- **CORS**: Configured for localhost:3000 to localhost:3001 communication
+- **Dependencies**: Express 4.x for stability (avoid Express 5.x)

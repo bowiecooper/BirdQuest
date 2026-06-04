@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Upload</title>
+</head>
+<body>
+    <h1>Test Upload</h1>
+    <button onclick="testHealth()">Test Health</button>
+    <input type="file" id="fileInput" accept="image/*">
+    <button onclick="testUpload()">Upload</button>
+    <div id="result"></div>
+
+    <script>
+        async function testHealth() {
+            const resultDiv = document.getElementById('result');
+            
+            try {
+                console.log('Testing health endpoint...');
+                const response = await fetch('http://192.168.155.82:3001/api/health', {
+                    method: 'GET',
+                    mode: 'cors'
+                });
+                
+                console.log('Health response:', response.status);
+                const result = await response.json();
+                console.log('Health result:', result);
+                
+                resultDiv.innerHTML = 'Health check: ' + JSON.stringify(result, null, 2);
+            } catch (error) {
+                console.error('Health error:', error);
+                resultDiv.innerHTML = 'Health check error: ' + error.message;
+            }
+        }
+        
+        async function testUpload() {
+            const fileInput = document.getElementById('fileInput');
+            const resultDiv = document.getElementById('result');
+            
+            if (!fileInput.files[0]) {
+                resultDiv.innerHTML = 'Please select a file';
+                return;
+            }
+            
+            const formData = new FormData();
+            formData.append('image', fileInput.files[0]);
+            
+            console.log('Starting upload...');
+            resultDiv.innerHTML = 'Uploading...';
+            
+            try {
+                const response = await fetch('http://192.168.155.82:3001/api/identify', {
+                    method: 'POST',
+                    body: formData,
+                    mode: 'cors'
+                });
+                
+                console.log('Response:', response.status);
+                const result = await response.json();
+                console.log('Result:', result);
+                
+                resultDiv.innerHTML = JSON.stringify(result, null, 2);
+            } catch (error) {
+                console.error('Error:', error);
+                resultDiv.innerHTML = 'Error: ' + error.message;
+            }
+        }
+    </script>
+</body>
+</html>

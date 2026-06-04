@@ -1,0 +1,16 @@
+# PyTorch is installed separately via the CUDA index URL (see README).
+# These are the rest of the deps.
+torch
+torchvision
+numpy
+pillow
+scikit-learn
+matplotlib
+tqdm
+
+# Inference service (serve/)
+fastapi
+uvicorn[standard]
+python-multipart
+httpx        # FastAPI TestClient dependency (serve/test_predict.py)
+pytest

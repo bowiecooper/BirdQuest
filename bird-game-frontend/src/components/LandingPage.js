@@ -31,14 +31,51 @@ const LandingPage = () => {
     if (!selectedImage) return;
     
     setIsUploading(true);
-    // TODO: Implement API call to backend for bird identification
-    console.log('Uploading image:', selectedImage);
     
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      const formData = new FormData();
+      formData.append('image', selectedImage);
+      
+      console.log('Attempting to upload to backend...');
+      
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+      
+      const response = await fetch('http://192.168.155.82:3001/api/identify', {
+        method: 'POST',
+        body: formData,
+        signal: controller.signal,
+        mode: 'cors'
+      });
+      
+      clearTimeout(timeoutId);
+      
+      console.log('Response received:', response.status, response.statusText);
+      
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Backend error:', errorText);
+        throw new Error(`Backend error: ${response.status} - ${errorText}`);
+      }
+      
+      const result = await response.json();
+      console.log('Backend response:', result);
+      
+      if (result.success) {
+        alert(`Bird identified: ${result.bird.commonName} (${result.bird.scientificName})\nConfidence: ${(result.bird.confidence * 100).toFixed(1)}%\n\nDescription: ${result.bird.description}`);
+      } else {
+        alert('Failed to identify bird. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      if (error.name === 'AbortError') {
+        alert('Request timed out - backend may be unresponsive');
+      } else {
+        alert(`Error: ${error.message}`);
+      }
+    } finally {
       setIsUploading(false);
-      alert('Bird identification coming soon!');
-    }, 2000);
+    }
   };
 
   const resetImage = () => {
