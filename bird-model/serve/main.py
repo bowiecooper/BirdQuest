@@ -31,7 +31,7 @@ from .schemas import (
     SpeciesPrediction,
 )
 
-MAX_UPLOAD_MB = float(os.environ.get("MAX_UPLOAD_MB", "10"))
+MAX_UPLOAD_MB = float(os.environ.get("MAX_UPLOAD_MB", "50"))
 ALLOWED_ORIGINS = [
     o.strip()
     for o in os.environ.get("ALLOWED_ORIGINS", "http://localhost:3000").split(",")

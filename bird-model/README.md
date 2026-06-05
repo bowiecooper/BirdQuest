@@ -67,7 +67,7 @@ curl -F file=@some_bird.jpg http://localhost:8000/predict | jq '.predictions'
 .venv/bin/python -m pytest serve/test_predict.py -v    # smoke tests
 ```
 Config via env: `CKPT_PATH` (default `checkpoints/best.pth`), `ALLOWED_ORIGINS`
-(CORS, default `http://localhost:3000`), `MAX_UPLOAD_MB` (default 10).
+(CORS, default `http://localhost:3000`), `MAX_UPLOAD_MB` (default 50).
 
 Deploy: `docker build -t birdquest-api . && docker run -p 8000:8000 birdquest-api`
 (CPU-only image; runs on Hugging Face Spaces / Render / Fly).

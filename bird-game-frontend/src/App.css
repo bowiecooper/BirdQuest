@@ -1,4 +1,54 @@
-.App {
-  min-height: 100vh;
-  background-color: #ffffff;
+/* Shared page styles for the protected app views. */
+.page {
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+.page h1 {
+  margin: 0 0 0.5rem;
+}
+
+.page-lead {
+  color: var(--muted);
+  margin: 0 0 2rem;
+  font-size: 1.05rem;
+}
+
+.placeholder-note {
+  display: inline-block;
+  background: rgba(47, 125, 82, 0.08);
+  color: var(--accent-dark);
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.action-card {
+  display: block;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  color: inherit;
+  transition: border-color 0.15s, transform 0.15s;
+}
+.action-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+.action-card h3 {
+  margin: 0 0 0.4rem;
+}
+.action-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
 }
