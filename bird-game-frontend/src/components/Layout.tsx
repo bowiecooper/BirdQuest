@@ -22,6 +22,7 @@ export function Layout() {
             Dashboard
           </NavLink>
           <NavLink to="/identify">Identify</NavLink>
+          <NavLink to="/groups">Groups</NavLink>
           <NavLink to="/me">My Life List</NavLink>
         </nav>
         <div className="app-account">

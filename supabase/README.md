@@ -11,6 +11,8 @@ migrations/
   20260604000001_initial_schema.sql   tables, enums, indexes, new-user -> profile trigger
   20260604000002_rls_policies.sql      RLS + membership helper functions (Letterboxd-style)
   20260604000003_leaderboard_view.sql  rarity-weighted leaderboard view + redeem_invite()
+  20260604000004_storage.sql           public `sightings` bucket + storage RLS
+  20260604000005_reusable_invites.sql  redeem_invite() made reusable (no longer single-use)
 seed.sql                               200-species catalog (GENERATED from the model)
 scripts/gen_species_seed.py            regenerates seed.sql from bird-model/checkpoints/best.pth
 ```
@@ -60,8 +62,9 @@ bird-model/.venv/bin/python supabase/scripts/gen_species_seed.py
 ## Notes / later work
 - All species are seeded at the **Common** tier (1 pt); `rarity_tier` is nullable.
   Real eBird-frequency-based tiers and `scientific_name` are a later enrichment.
-- Invites are single-use (marked `accepted` on redeem); multi-use links are a
-  later option.
+- Invites are **reusable share links** (migration 0005): a token stays `active`
+  and can be redeemed by many people. Admins kill a link by setting `status =
+  'revoked'` (the UI's "Regenerate" revokes the old one and mints a new token).
 - Validated against Postgres 16 with a stubbed `auth` schema: migrations apply
   clean, the signup trigger, RLS policies, leaderboard, and `redeem_invite` all
   behave as intended.

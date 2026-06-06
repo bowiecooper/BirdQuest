@@ -40,6 +40,10 @@ export default function DashboardPage() {
           <h3>📖 My life list</h3>
           <p>Browse the species you've confirmed so far.</p>
         </Link>
+        <Link to="/groups" className="action-card">
+          <h3>🪶 Groups</h3>
+          <p>Compete with friends on a rarity-weighted leaderboard.</p>
+        </Link>
       </div>
     </div>
   );
